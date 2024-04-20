@@ -1,7 +1,7 @@
 
+project(debugtools VERSION 0.0.1)
 
-project(debug)
 set(DEBUG_SOURCES "./debug.c")
-add_library( debug ${DEBUG_SOURCES})
+add_library( debugtools ${DEBUG_SOURCES})
 
-target_link_libraries(debug logger stdkelib)
+target_link_libraries(debugtools logger stdkelib)

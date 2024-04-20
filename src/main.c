@@ -1,7 +1,7 @@
 
 
-#include "logger.h"
-#include "utils/debug.h"
+#include "logger/logger.h"
+#include "debugging/debug.h"
 #include <stdio.h>
 
 

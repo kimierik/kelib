@@ -1,7 +1,8 @@
-
-#include "utils/stdkelib.h"
 #include "logger.h"
-#include "utils/debug.h"
+
+#include "../stdkelib/stdkelib.h"
+#include "../debugging/debug.h"
+
 #include <libgen.h>
 #include <stdio.h>
 #include <string.h>
