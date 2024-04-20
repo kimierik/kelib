@@ -60,7 +60,9 @@ void __logger_log(char *str){
 
 void __logger_error(char* str){ 
     __log(str,"\33[31;31m","[LOGGER.ERROR]");
-    __log(get_stack_trace(),"\33[31;31m","[LOGGER.ERROR]\n");
+    char* stacktrace=get_stack_trace();
+    __log(stacktrace,"\33[31;31m","[LOGGER.ERROR]\n");
+    free(stacktrace);
 }
 
 void __logger_debug( char* str){
