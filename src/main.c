@@ -13,7 +13,7 @@ int main( int argc, char** argv){
     set_logger_dirpath(argv[0]);
 
     set_logger_log_to_file(1);
-    set_logger_log_to_stdin(0);
+    set_logger_log_to_stdout(0);
 
     logger.log("testing");
 
