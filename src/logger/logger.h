@@ -21,25 +21,14 @@ typedef struct LOGGER {
 
 
 
-
-
-
-// if we want to log to a file aswell
+// setting to 1 logs all logs to a file
 void set_logger_log_to_file(int log);
-void set_logger_log_to_stdin(int log);
+
+// setting to 0 removes logging to stdout
+void set_logger_log_to_stdout(int log);
+
+// directory where we will put the logs into
 void set_logger_dirpath(char* path);
-
-
-
-void __logger_log( char* str);
-void __logger_error( char* str);
-void __logger_debug( char* str);
-
-
-
-
-
-
 
 
 

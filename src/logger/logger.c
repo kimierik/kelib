@@ -13,12 +13,17 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
+void __logger_log( char* str);
+void __logger_error( char* str);
+void __logger_debug( char* str);
+
+
 LOGGER logger={
     .log = &__logger_log,
     .error = &__logger_error,
     .debug = &__logger_debug,
     .__log_to_file=0,
-    .__path_to_file="",
+    .__path_to_file=0,
     .__log_to_stdin=1,
 };
 
@@ -34,6 +39,11 @@ void __log(char*str,char*color,char*header){
     }
 
     if (logger.__log_to_file) {
+
+        // we do not have path to directory
+        if(!logger.__path_to_file){
+            panic("attempting to log to a file but dirpath is not set", 1);
+        }
         
         char* path=add_str(logger.__path_to_file, "/logs/log.log");
 
@@ -95,6 +105,7 @@ void set_logger_log_to_file(int log){
     logger.__log_to_file=log;
 }
 
-void set_logger_log_to_stdin(int log){
+void set_logger_log_to_stdout(int log){
     logger.__log_to_stdin=log;
 }
+

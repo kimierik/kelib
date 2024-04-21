@@ -27,7 +27,8 @@
 char* add_str(const char*a ,const char* b);
 
 
-
+//unrecoverable error
+void panic(char* error_messege,u8 exit_code);
 
 
 
