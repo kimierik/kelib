@@ -5,7 +5,7 @@ set(CMAKE_BUILD_TYPE Debug )
 set(CMAKE_C_FLAGS_DEBUG "-O0 -g -Wall -ggdb -rdynamic")
 
 
-project("kelib")
+project("kelib" VERSION 0.0.1)
 
 set(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
 set(BUILD_SHARED_LIBS OFF)
