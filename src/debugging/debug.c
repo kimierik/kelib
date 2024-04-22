@@ -1,10 +1,10 @@
 
+#include "../kelib.h"
+
 #include <execinfo.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "debug.h"
 #include <string.h>
-
 
 /*
  * prints stack trace etc

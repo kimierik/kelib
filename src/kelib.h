@@ -27,8 +27,32 @@
 char* add_str(const char*a ,const char* b);
 
 
+
+
+
+
+
+
+//standard log
+void log(char* str);
+
+//log recoverable error
+void error(char* str);
+
 //unrecoverable error
 void panic(char* error_messege,u8 exit_code);
+
+// setting to 1 logs all logs to a file
+void set_logger_log_to_file(int log);
+
+// setting to 0 removes logging to stdout
+void set_logger_log_to_stdout(int log);
+
+// directory where we will put the logs into
+void set_logger_dirpath(char* path);
+
+
+
 
 
 

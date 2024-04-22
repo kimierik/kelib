@@ -1,7 +1,4 @@
-#include "logger.h"
-
-#include "../stdkelib/stdkelib.h"
-#include "../debugging/debug.h"
+#include "../kelib.h"
 
 #include <libgen.h>
 #include <stdio.h>
@@ -18,6 +15,25 @@ void __logger_error( char* str);
 void __logger_debug( char* str);
 
 
+//defined in debug.c
+void print_stack_trace(void);
+char* get_stack_trace(void);
+
+
+
+typedef struct LOGGER {
+    void (*log)(char*);
+    void (*debug)(char*);
+    void (*error)(char*);
+
+    int __log_to_file;
+    char* __path_to_file;
+    int __log_to_stdin;
+    int __debug_mode;
+} LOGGER;
+
+
+
 LOGGER logger={
     .log = &__logger_log,
     .error = &__logger_error,
@@ -26,6 +42,57 @@ LOGGER logger={
     .__path_to_file=0,
     .__log_to_stdin=1,
 };
+
+
+//################################################## 
+//#                                                #
+//#             PUBLIC DEFINITIONS                 #
+//#                                                #
+//################################################## 
+
+
+void set_logger_dirpath(char* path){
+    //remove the name executable name
+    //we only want the directory of the executable relative to where it is executed form   
+    
+    //set 0 at the / 
+    int len=strlen(path);
+    for (int i=len;i>0;i--){
+        if (path[i]=='/') {
+            path[i]=0;
+            break;
+        }
+        if(i==0){
+            logger.error("cannot set path to file");
+        }
+    }
+
+    logger.__path_to_file=path;
+}
+
+void set_logger_log_to_file(int log){
+    logger.__log_to_file=log;
+}
+
+void set_logger_log_to_stdout(int log){
+    logger.__log_to_stdin=log;
+}
+
+
+
+
+
+
+
+
+
+//################################################## 
+//#                                                #
+//#             PRIVATE DEFINITIONS                #
+//#                                                #
+//################################################## 
+
+
 
 
 
@@ -82,30 +149,13 @@ void __logger_debug( char* str){
 }
 
 
-void set_logger_dirpath(char* path){
-    //remove the name executable name
-    //we only want the directory of the executable relative to where it is executed form   
-    
-    //set 0 at the / 
-    int len=strlen(path);
-    for (int i=len;i>0;i--){
-        if (path[i]=='/') {
-            path[i]=0;
-            break;
-        }
-        if(i==0){
-            logger.error("cannot set path to file");
-        }
-    }
 
-    logger.__path_to_file=path;
-}
 
-void set_logger_log_to_file(int log){
-    logger.__log_to_file=log;
-}
 
-void set_logger_log_to_stdout(int log){
-    logger.__log_to_stdin=log;
-}
+
+
+
+
+
+
 
