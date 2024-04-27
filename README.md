@@ -1,4 +1,4 @@
-# these are some custom c libs i sometimes use
+# this is my custom C lib that i sometimes use
 
 ## compilation
 ```sh
