@@ -21,16 +21,6 @@ char* get_stack_trace(void);
 
 
 
-typedef struct LOGGER {
-    void (*log)(char*);
-    void (*debug)(char*);
-    void (*error)(char*);
-
-    int __log_to_file;
-    char* __path_to_file;
-    int __log_to_stdin;
-    int __debug_mode;
-} LOGGER;
 
 
 

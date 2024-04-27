@@ -29,15 +29,18 @@ char* add_str(const char*a ,const char* b);
 
 
 
+typedef struct LOGGER {
+    void (*log)(char*);
+    void (*debug)(char*);
+    void (*error)(char*);
+
+    int __log_to_file;
+    char* __path_to_file;
+    int __log_to_stdin;
+    int __debug_mode;
+} LOGGER;
 
 
-
-
-//standard log
-void log(char* str);
-
-//log recoverable error
-void error(char* str);
 
 //unrecoverable error
 void panic(char* error_messege,u8 exit_code);

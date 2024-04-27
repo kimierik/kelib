@@ -16,6 +16,8 @@ set(SOURCES src/kelib.c src/debugging/debug.c src/logger/logger.c)
 
 add_library(kelib ${SOURCES})
 
+set_target_properties(kelib PROPERTIES PUBLIC_HEADER src/kelib.h)
+
 include(GNUInstallDirs)
 
 install(TARGETS kelib
@@ -24,4 +26,3 @@ install(TARGETS kelib
 )
 
 
-#add_executable("kelib" ${SOURCES})
