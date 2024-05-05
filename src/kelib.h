@@ -1,5 +1,5 @@
-#ifndef STDKELIB_H
-#define STDKELIB_H
+#ifndef __KELIB_H
+#define __KELIB_H
 
 //im used to use bool true/ false 
 #define false 0
@@ -20,6 +20,9 @@
 #define i64 long long
 #define u64 unsigned long long
 
+#define f32 float
+#define f64 double
+#define f80 long double
 
 
 // returns a+b 
