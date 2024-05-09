@@ -33,9 +33,9 @@ char* add_str(const char*a ,const char* b);
 
 
 typedef struct LOGGER {
-    void (*log)(char*);
-    void (*debug)(char*);
-    void (*error)(char*);
+    void (*log)(const char*,...)__attribute__((format(printf,1,2)));
+    void (*debug)(const char*,...)__attribute__((format(printf,1,2)));
+    void (*error)(const char*,...)__attribute__((format(printf,1,2)));
 
     int __log_to_file;
     char* __path_to_file;

@@ -1,6 +1,7 @@
 #include "../kelib.h"
 
 #include <libgen.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
@@ -10,9 +11,9 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-void __logger_log( char* str);
-void __logger_error( char* str);
-void __logger_debug( char* str);
+void __logger_log( const char* str,...);
+void __logger_error( const char* str,...);
+void __logger_debug( const char* str,...);
 
 
 //defined in debug.c
@@ -86,13 +87,16 @@ void set_logger_log_to_stdout(int log){
 
 
 
-void __log(char*str,char*color,char*header){
+void __log(const char*str, const char*color, const char*header, va_list args){
+
 
     //set log color
     printf("%s",color);
 
     if (logger.__log_to_stdin) {
-        printf("%s %s\n",header,str);
+        printf("%s ",header);
+        vprintf(str, args);
+        //printf("%s %s\n",header,str);
     }
 
     if (logger.__log_to_file) {
@@ -114,28 +118,46 @@ void __log(char*str,char*color,char*header){
             free(dirpath);
         }
 
-        fprintf(f,"%s %s \n",header, str);
+        fprintf(f,"%s ",header);
+        vfprintf(f, str, args);
+
+        //cleanup
         fclose(f);
         free(path);
     }
+
+    //reset color
+    printf("\033[39m\033[49m");
+
 }
 
 
-void __logger_log(char *str){
-    __log(str,"\33[1;32m","[LOGGER.LOG]");
+void __logger_log(const char *str,...){
+    va_list args;
+    va_start(args, str);
+    __log(str,"\33[1;32m","[LOGGER.LOG]",args);
+    va_end(args);
 }
 
-void __logger_error(char* str){ 
-    __log(str,"\33[31;31m","[LOGGER.ERROR]");
+void __logger_error(const char* str,...){ 
+    va_list args;
+    va_start(args, str);
+    __log(str,"\33[31;31m","[LOGGER.ERROR]",args);
     char* stacktrace=get_stack_trace();
-    __log(stacktrace,"\33[31;31m","[LOGGER.ERROR]\n");
+
+    //something is fucked here ards should not be her
+    __log(stacktrace,"\33[31;31m","[LOGGER.STACKTRACE]\n",args);
     free(stacktrace);
+    va_end(args);
 }
 
-void __logger_debug( char* str){
+void __logger_debug( const char* str,...){
+    va_list args;
+    va_start(args, str);
     if(logger.__debug_mode){
-        __log(str,"\33[1;32m","[LOGGER.DEBUG]");
+        __log(str,"\33[1;32m","[LOGGER.DEBUG]",args);
     }
+    va_end(args);
 }
 
 
